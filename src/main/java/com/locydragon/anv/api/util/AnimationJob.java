@@ -19,14 +19,26 @@ public class AnimationJob {
 		}
 	}
 
+	/**
+	 * 获取任务类型
+	 * @return 任务的类型
+	 */
 	public String getJobType() {
 		return this.jobType;
 	}
 
+	/**
+	 * 获取职业的描述
+	 * @return 职业的描述
+	 */
 	public String[] getJobArgs() {
 		return this.jobArgs;
 	}
 
+	/**
+	 * 序列化
+	 * @return 序列化的String
+	 */
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(this.jobType);
@@ -41,6 +53,12 @@ public class AnimationJob {
 		}
 		return toString;
 	}
+
+	/**
+	 * 反序列化
+	 * @param magicValue 序列化的String
+	 * @return 对象实例
+	 */
 	public static AnimationJob toAnimationJob(String magicValue) {
 		try {
 			String[] splitT = magicValue.split(":");

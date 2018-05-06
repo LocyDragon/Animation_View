@@ -14,7 +14,6 @@ public class ViewCommand implements CommandExecutor {
 		if (args[0].equalsIgnoreCase("create")) {
 
 		}
-
 		return false;
 	}
 }

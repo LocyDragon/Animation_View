@@ -1,7 +1,10 @@
 package com.locydragon.anv.api;
 
+import com.locydragon.anv.api.util.AnimationJob;
 import com.locydragon.anv.api.util.AnimationObject;
 import com.locydragon.anv.core.AnimationLand;
+
+import java.util.List;
 
 public class AnimationViewAPI {
 	/**
@@ -13,7 +16,13 @@ public class AnimationViewAPI {
 		if (AnimationLand.land.getBoolean(animationName+"."+"created", false) == false) {
 			return null;
 		}
-		return null;
+		AnimationObject object = AnimationObject.emptyObject();
+		object.setName(animationName);
+		List<String> jobStringList = AnimationLand.land.getStringList(animationName+".jobs");
+		for (String eachJob : jobStringList) {
+			object.addJob(AnimationJob.toAnimationJob(eachJob));
+		}
+		return object;
 	}
 
 	/**
