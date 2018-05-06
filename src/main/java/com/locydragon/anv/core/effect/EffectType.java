@@ -10,7 +10,7 @@ public enum EffectType {
 	EffectType(int t) {
 		this.f = t;
 	}
-    int getF() {
+    public int getF() {
 		return this.f;
 	}
 }
