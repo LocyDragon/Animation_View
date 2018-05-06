@@ -1,0 +1,7 @@
+name: AnimationView
+main: com.locydragon.anv.AnimationView
+version: 1.0.0
+author: LocyDragon
+depend: [ProtocolLib]
+commands:
+  anv:
