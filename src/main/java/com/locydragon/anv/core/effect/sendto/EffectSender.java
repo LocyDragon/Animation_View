@@ -15,7 +15,7 @@ public class EffectSender {
 	static ProtocolManager manager = ProtocolLibrary.getProtocolManager();
 	private static final Integer packetId = 0x22;
 	public static boolean sendEffect(EffectType type, Player sendTo, Location location) {
-		PacketContainer newPacket = manager.createPacket(PacketType.fromLegacy(packetId, PacketType.Sender.SERVER));
+	    PacketContainer newPacket = manager.createPacket(PacketType.fromLegacy(packetId, PacketType.Sender.SERVER));
 		newPacket.getIntegers().write(0, type.getF());
 		newPacket.getIntegers().write(1, 1); //warning
 		newPacket.getBooleans().write(0, false);

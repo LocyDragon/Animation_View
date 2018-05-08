@@ -4,6 +4,7 @@ import com.locydragon.anv.api.util.AnimationJob;
 import com.locydragon.anv.api.util.AnimationObject;
 import com.locydragon.anv.core.AnimationLand;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AnimationViewAPI {
@@ -39,5 +40,17 @@ public class AnimationViewAPI {
     	AnimationObject object = AnimationObject.emptyObject();
     	object.setName(animationName);
     	return object;
+	}
+
+	/**
+	 * 获取在这个服务器内所有已经创建的动画对象
+	 * @return 动画对象的名字集合
+	 */
+	public static List<String> objectList() {
+    	List<String> list = new ArrayList<>();
+    	for (String each : AnimationLand.land.getKeys(false)) {
+    		list.add(each);
+		}
+		return list;
 	}
 }
