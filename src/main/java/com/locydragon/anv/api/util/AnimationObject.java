@@ -86,4 +86,33 @@ public class AnimationObject {
 		reloadSettings();
 		return this;
 	}
+
+	/**
+	 * 判断动画对象是否有某个任务
+	 * @param jobType 任务的标签
+	 * @return 是否有这个任务
+	 */
+	public boolean hasJob(String jobType) {
+		for (AnimationJob jobOnce : this.jobList) {
+			if (jobOnce.getJobType().equals(jobType)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * 根据任务标签获取任务
+	 * @param jobType 任务标签
+	 * @return 任务对象集合
+	 */
+	public List<AnimationJob> getJobByType(String jobType) {
+		List<AnimationJob> jobList = new ArrayList<>();
+		for (AnimationJob jobOnce : this.jobList) {
+			if (jobOnce.getJobType().equals(jobType)) {
+				jobList.add(jobOnce);
+			}
+		}
+		return jobList;
+	}
 }
