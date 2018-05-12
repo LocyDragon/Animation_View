@@ -3,9 +3,11 @@ package com.locydragon.anv.commands;
 import com.locydragon.anv.api.AnimationViewAPI;
 import com.locydragon.anv.api.util.AnimationJob;
 import com.locydragon.anv.api.util.AnimationObject;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * @author LocyDragon
@@ -16,6 +18,10 @@ public class ViewCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 		if (!sender.isOp()) {
 			sender.sendMessage(genAnimationMsg("你没有权限."));
+			return false;
+		}
+		if (args.length <= 0) {
+			sendHelp(sender);
 			return false;
 		}
 		if (args[0].equalsIgnoreCase("create")) {
@@ -65,10 +71,45 @@ public class ViewCommand implements CommandExecutor {
 			} else {
 				sender.sendMessage(genAnimationMsg("使用/anv mark [动画名称] [注释文字] ——给动画加注释,以标记这个动画是做什么用的(这仅仅是为了自己方便)"));
 			}
+		} else if (args[0].equalsIgnoreCase("help")) {
+			sendHelp(sender);
+			return false;
+		} else if (args[0].equalsIgnoreCase("play")) {
+			if (args.length == 3) {
+				String who = args[1];
+				String animationName = args[2];
+				Player playTo = Bukkit.getPlayer(who);
+				if (playTo == null) {
+					sender.sendMessage(genAnimationMsg("你输入的玩家"+args[1]+"不在线或不存在."));
+					return false;
+				}
+				AnimationObject object = AnimationViewAPI.getAnimationObject(animationName);
+				if (object == null) {
+					sender.sendMessage(genAnimationMsg("你输入的动画"+args[2]+"不在线或不存在."));
+					return false;
+				}
+				object.playFor(playTo);
+				sender.sendMessage(genAnimationMsg("为"+playTo.getName()+"播放"+animationName+"成功."));
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv play [玩家] [动画名称] ——给玩家播放一个动画."));
+			}
+		} else if (args[0].equalsIgnoreCase("addSendMsg")) {
+			if (args.length >= 3) {
+
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv addSendMsg [动画名称]"));
+			}
 		}
 		return false;
 	}
 	public String genAnimationMsg(String info) {
 		return new StringBuilder().append("§7[§b§lAnimationView§7]§a"+info).toString();
+	}
+	public void sendHelp(CommandSender sender) {
+		sender.sendMessage(genAnimationMsg("/anv help ——查看帮助"));
+		sender.sendMessage(genAnimationMsg("/anv create [动画名称] ——创建一个动画对象."));
+		sender.sendMessage(genAnimationMsg("/anv list ——查看所有动画对象及其注释"));
+		sender.sendMessage(genAnimationMsg("/anv mark [动画名称] [注释文字] ——给动画加注释,以标记这个动画是做什么用的(这仅仅是为了自己方便)"));
+		sender.sendMessage(genAnimationMsg("/anv play [玩家] [动画名称] ——给玩家播放一个动画."));
 	}
 }

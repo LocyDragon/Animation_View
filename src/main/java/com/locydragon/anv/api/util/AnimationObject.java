@@ -1,6 +1,8 @@
 package com.locydragon.anv.api.util;
 
 import com.locydragon.anv.core.AnimationLand;
+import com.locydragon.anv.core.tree.AnimationResolver;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,5 +116,14 @@ public class AnimationObject {
 			}
 		}
 		return jobList;
+	}
+
+	/**
+	 * 给玩家播放这个动画组
+	 * @param who 玩家对象
+	 * @return 是否播放成功，如果玩家正在播放一个动画将不会成功.
+	 */
+	public boolean playFor(Player who) {
+		return AnimationResolver.resolveAnimation(this, who);
 	}
 }
