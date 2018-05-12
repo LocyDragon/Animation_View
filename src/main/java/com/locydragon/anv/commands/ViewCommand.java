@@ -104,10 +104,35 @@ public class ViewCommand implements CommandExecutor {
 				sender.sendMessage(genAnimationMsg("使用/anv play [玩家] [动画名称] ——给玩家播放一个动画."));
 			}
 		} else if (args[0].equalsIgnoreCase("addSendMsg")) {
-			if (args.length >= 3) {
-
+			if (args.length >= 4) {
+				String targetName = args[1];
+				String location = args[2];
+				StringBuilder magicValue = new StringBuilder();
+				for (int i = 3;i < args.length;i++) {
+					magicValue.append(args[i]).append(" ");
+				}
+				String msg = magicValue.toString().trim();
+				AnimationObject animationObject = AnimationViewAPI.getAnimationObject(targetName);
+				if (animationObject == null) {
+					sender.sendMessage(genAnimationMsg("您指定的动画不存在."));
+					return false;
+				}
+				if (!isInt(location)) {
+					sender.sendMessage("您输入的位置不是个阿拉伯数字!");
+					return false;
+				}
+				int where = Integer.valueOf(location);
+				where++;
+				AnimationJob job = new AnimationJob("发送信息", new String[]{ msg });
+				if (where >= animationObject.getJobList().size()) {
+					animationObject.addJob(job);
+				} else {
+					animationObject.addJob(job, where);
+				}
+				sender.sendMessage(genAnimationMsg("添加任务成功."));
 			} else {
-				sender.sendMessage(genAnimationMsg("使用/anv addSendMsg [动画名称]"));
+				sender.sendMessage(genAnimationMsg("使用/anv addSendMsg [动画名称] [位置] [信息] ——插入动画:发送信息"));
+				sender.sendMessage(genAnimationMsg("位置的意思是在第几个任务§c§l后面§a执行这个动画，可以使用/anv jobs指令来查看动画的任务列表."));
 			}
 		} else if (args[0].equalsIgnoreCase("jobs")) {
 			if (args.length == 2) {
@@ -152,10 +177,19 @@ public class ViewCommand implements CommandExecutor {
 	}
 	public void sendHelp(CommandSender sender) {
 		sender.sendMessage(genAnimationMsg("/anv help ——查看帮助"));
-		sender.sendMessage(genAnimationMsg("/anv create [动画名称] ——创建一个动画对象."));
 		sender.sendMessage(genAnimationMsg("/anv list ——查看所有动画对象及其注释"));
 		sender.sendMessage(genAnimationMsg("/anv mark [动画名称] [注释文字] ——给动画加注释,以标记这个动画是做什么用的(这仅仅是为了自己方便)"));
 		sender.sendMessage(genAnimationMsg("/anv play [玩家] [动画名称] ——给玩家播放一个动画."));
+		sender.sendMessage(genAnimationMsg("/anv addSendMsg [动画名称] [位置] [信息] ——插入动画:发送信息"));
+		sender.sendMessage(genAnimationMsg("/anv create [动画名称] ——创建一个动画对象."));
 		sender.sendMessage(genAnimationMsg("/anv jobs [动画名称] ——查看一个动画的所有任务."));
+	}
+	public boolean isInt(String intment) {
+		try {
+			Integer.valueOf(intment);
+			return true;
+		} catch (Exception exc) {
+			return false;
+		}
 	}
 }
