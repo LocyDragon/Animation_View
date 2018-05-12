@@ -1,13 +1,23 @@
 package com.locydragon.anv.commands;
 
+import com.google.common.collect.Lists;
 import com.locydragon.anv.api.AnimationViewAPI;
 import com.locydragon.anv.api.util.AnimationJob;
 import com.locydragon.anv.api.util.AnimationObject;
+import com.locydragon.anv.core.protocol.BookManager;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author LocyDragon
@@ -99,6 +109,41 @@ public class ViewCommand implements CommandExecutor {
 			} else {
 				sender.sendMessage(genAnimationMsg("使用/anv addSendMsg [动画名称]"));
 			}
+		} else if (args[0].equalsIgnoreCase("jobs")) {
+			if (args.length == 2) {
+				String animationName = args[1];
+				AnimationObject object = AnimationViewAPI.getAnimationObject(animationName);
+				if (object == null) {
+					sender.sendMessage(genAnimationMsg("对象动画不存在."));
+					return false;
+				}
+				ItemStack bookItem = new ItemStack(Material.WRITTEN_BOOK);
+				BookMeta meta = (BookMeta) bookItem.getItemMeta();
+				List<String> pages = new ArrayList<>();
+				int i = 0;
+				for (AnimationJob job : object.getJobList()) {
+					StringBuilder builder = new StringBuilder();
+					builder.append(ChatColor.BLUE);
+					builder.append("任务序号: ").append(i).append("\n");
+					builder.append(ChatColor.GREEN);
+					builder.append("任务名称: ").append(job.getJobArgs()).append("\n");
+					builder.append(ChatColor.AQUA);
+					builder.append("任务属性: ").append(Arrays.asList(job.getJobArgs()).toString()).append("\n");
+					pages.add(builder.toString());
+					i++;
+				}
+				if (pages.isEmpty()) {
+					pages.add(ChatColor.GREEN+"这个动画还没有任何任务呢!快去添加一些吧!");
+				}
+				meta.setPages(pages);
+				meta.setTitle(ChatColor.BLUE+"动画"+animationName+"的任务列表");
+				meta.setDisplayName(ChatColor.BLUE+"动画"+animationName+"的任务列表");
+				bookItem.setItemMeta(meta);
+				BookManager.open((Player)sender, bookItem);
+				sender.sendMessage(genAnimationMsg("为您呈现"+animationName+"的动画列表."));
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv jobs [动画名称] ——查看一个动画的所有任务."));
+			}
 		}
 		return false;
 	}
@@ -111,5 +156,6 @@ public class ViewCommand implements CommandExecutor {
 		sender.sendMessage(genAnimationMsg("/anv list ——查看所有动画对象及其注释"));
 		sender.sendMessage(genAnimationMsg("/anv mark [动画名称] [注释文字] ——给动画加注释,以标记这个动画是做什么用的(这仅仅是为了自己方便)"));
 		sender.sendMessage(genAnimationMsg("/anv play [玩家] [动画名称] ——给玩家播放一个动画."));
+		sender.sendMessage(genAnimationMsg("/anv jobs [动画名称] ——查看一个动画的所有任务."));
 	}
 }
