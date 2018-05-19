@@ -202,6 +202,13 @@ public class ViewCommand implements CommandExecutor {
 				sender.sendMessage(genAnimationMsg("使用/anv addActionBar [动画名称] [位置] [信息] ——插入动画:发送ActionBar(仅在1.9+版本可以使用)"));
 				sender.sendMessage(genAnimationMsg("位置的意思是在第几个任务§c§l后面§a执行这个动画，可以使用/anv jobs指令来查看动画的任务列表."));
 			}
+		} else if (args[0].equalsIgnoreCase("wait")) {
+			if (args.length == 4) {
+
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv wait [动画名称] [位置] [秒] ——设置在某个任务后面等待几秒"));
+
+			}
 		}
 		return false;
 	}
