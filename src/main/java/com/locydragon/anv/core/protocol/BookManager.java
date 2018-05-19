@@ -17,9 +17,9 @@ import java.util.concurrent.atomic.AtomicReference;
  * 本类的代码来自项目: UDPLib
  */
 public class BookManager {
-	static ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
+	public static ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
 
-	static AtomicReference<PacketContainer> BOOK_OPEN_PACKET = new AtomicReference<>();
+	public static AtomicReference<PacketContainer> BOOK_OPEN_PACKET = new AtomicReference<>();
 
 	/**
 	 * 本方法来自项目:UDPLib，项目地址:https://github.com/UnknownStudio/UDPLib
