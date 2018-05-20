@@ -16,7 +16,6 @@ public class SendSmallTitleBench implements Listener {
 			TitleManager.title(e.getPlayer(), null, e.getThisJob().getJobArgs()[3],
 					Integer.valueOf(e.getThisJob().getJobArgs()[0]), Integer.valueOf(e.getThisJob().getJobArgs()[1]) ,
 					Integer.valueOf(e.getThisJob().getJobArgs()[2]));
-
 		}
 	}
 }

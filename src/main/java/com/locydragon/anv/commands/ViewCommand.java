@@ -299,6 +299,68 @@ public class ViewCommand implements CommandExecutor {
 			} else {
 				sender.sendMessage(genAnimationMsg("使用/anv smallTitle [动画名称] [位置] [淡入时间] [停留时间] [淡出时间] [大标题信息] ——来添加一个小标题动画."));
 			}
+		} else if (args[0].equalsIgnoreCase("playerCommand")) {
+			if (args.length >= 4) {
+				String targetName = args[1];
+				String location = args[2];
+				StringBuilder magicValue = new StringBuilder();
+				for (int i = 3;i < args.length;i++) {
+					magicValue.append(args[i]).append(" ");
+				}
+				String msg = magicValue.toString().trim();
+				AnimationObject animationObject = AnimationViewAPI.getAnimationObject(targetName);
+				if (animationObject == null) {
+					sender.sendMessage(genAnimationMsg("您指定的动画不存在."));
+					return false;
+				}
+				if (!isInt(location)) {
+					sender.sendMessage("您输入的位置不是个阿拉伯数字!");
+					return false;
+				}
+				int where = Integer.valueOf(location);
+				where++;
+				AnimationJob job = new AnimationJob("玩家指令", new String[]{ msg });
+				if (where >= animationObject.getJobList().size()) {
+					animationObject.addJob(job);
+				} else {
+					animationObject.addJob(job, where);
+				}
+				sender.sendMessage(genAnimationMsg("添加任务成功."));
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv playerCommand [动画名称] [位置] [指令] ——执行玩家指令"));
+				sender.sendMessage(genAnimationMsg("提示:如果指令不以\"/\"开头的话，就会强制让玩家说一句话."));
+			}
+		} else if (args[0].equalsIgnoreCase("opCommand")) {
+			if (args.length >= 4) {
+				String targetName = args[1];
+				String location = args[2];
+				StringBuilder magicValue = new StringBuilder();
+				for (int i = 3;i < args.length;i++) {
+					magicValue.append(args[i]).append(" ");
+				}
+				String msg = magicValue.toString().trim();
+				AnimationObject animationObject = AnimationViewAPI.getAnimationObject(targetName);
+				if (animationObject == null) {
+					sender.sendMessage(genAnimationMsg("您指定的动画不存在."));
+					return false;
+				}
+				if (!isInt(location)) {
+					sender.sendMessage("您输入的位置不是个阿拉伯数字!");
+					return false;
+				}
+				int where = Integer.valueOf(location);
+				where++;
+				AnimationJob job = new AnimationJob("OP指令", new String[]{ msg });
+				if (where >= animationObject.getJobList().size()) {
+					animationObject.addJob(job);
+				} else {
+					animationObject.addJob(job, where);
+				}
+				sender.sendMessage(genAnimationMsg("添加任务成功."));
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv opCommand [动画名称] [位置] [指令] ——执行OP指令"));
+				sender.sendMessage(genAnimationMsg("提示:如果指令不以\"/\"开头的话，就会强制让玩家说一句话."));
+			}
 		}
 		return false;
 	}
@@ -314,6 +376,8 @@ public class ViewCommand implements CommandExecutor {
 		sender.sendMessage(genAnimationMsg("/anv addActionBar [动画名称] [位置] [信息] ——插入动画:发送ActionBar(仅在1.9+版本可以使用)"));
 		sender.sendMessage(genAnimationMsg("/anv bigTitle [动画名称] [位置] [淡入时间] [停留时间] [淡出时间] [大标题信息] ——来添加一个大标题动画."));
 		sender.sendMessage(genAnimationMsg("/anv smallTitle [动画名称] [位置] [淡入时间] [停留时间] [淡出时间] [大标题信息] ——来添加一个小标题动画."));
+		sender.sendMessage(genAnimationMsg("/anv playerCommand [动画名称] [位置] [指令] ——执行玩家指令"));
+		sender.sendMessage(genAnimationMsg("/anv opCommand [动画名称] [位置] [指令] ——执行OP指令"));
 		sender.sendMessage(genAnimationMsg("/anv create [动画名称] ——创建一个动画对象."));
 		sender.sendMessage(genAnimationMsg("/anv jobs [动画名称] ——查看一个动画的所有任务."));
 	}
