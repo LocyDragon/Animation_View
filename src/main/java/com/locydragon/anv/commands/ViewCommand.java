@@ -204,10 +204,100 @@ public class ViewCommand implements CommandExecutor {
 			}
 		} else if (args[0].equalsIgnoreCase("wait")) {
 			if (args.length == 4) {
-
+				String targetName = args[1];
+				String location = args[2];
+				String second = args[3];
+				if (!(isInt(location)) || !(isInt(second))) {
+					sender.sendMessage(genAnimationMsg("不是数字"));
+					return false;
+				}
+				AnimationObject animationObject = AnimationViewAPI.getAnimationObject(targetName);
+				if (animationObject == null) {
+					sender.sendMessage(genAnimationMsg("您指定的动画不存在."));
+					return false;
+				}
+				if (!isInt(location)) {
+					sender.sendMessage("您输入的位置不是个阿拉伯数字!");
+					return false;
+				}
+				int where = Integer.valueOf(location);
+				where++;
+				AnimationJob job = new AnimationJob("等待", new String[]{ second });
+				if (where >= animationObject.getJobList().size()) {
+					animationObject.addJob(job);
+				} else {
+					animationObject.addJob(job, where);
+				}
+				sender.sendMessage(genAnimationMsg("添加任务成功."));
 			} else {
 				sender.sendMessage(genAnimationMsg("使用/anv wait [动画名称] [位置] [秒] ——设置在某个任务后面等待几秒"));
 
+			}
+		} else if (args[0].equalsIgnoreCase("bigTitle")) {
+			if (args.length >= 7) {
+				String animationName = args[1];
+				String location = args[2];
+				String fadeIn = args[3];
+				String stay = args[4];
+				String fadeOut = args[5];
+				StringBuilder magicValue = new StringBuilder();
+				for (int i = 6;i < args.length;i++) {
+					magicValue.append(args[i]).append(" ");
+				}
+				String titleMsg = magicValue.toString().trim();
+				if (!isInt(fadeIn) || !isInt(stay) || !isInt(fadeOut) || !isInt(location)) {
+					sender.sendMessage(genAnimationMsg("不是数字."));
+					return false;
+				}
+				AnimationObject animationObject = AnimationViewAPI.getAnimationObject(animationName);
+				if (animationObject == null) {
+					sender.sendMessage(genAnimationMsg("您指定的动画不存在."));
+					return false;
+				}
+				int where = Integer.valueOf(location);
+				where++;
+				AnimationJob job = new AnimationJob("大Title", new String[]{ fadeIn, stay, fadeOut, titleMsg });
+				if (where >= animationObject.getJobList().size()) {
+					animationObject.addJob(job);
+				} else {
+					animationObject.addJob(job, where);
+				}
+				sender.sendMessage(genAnimationMsg("添加任务成功."));
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv bigTitle [动画名称] [位置] [淡入时间] [停留时间] [淡出时间] [大标题信息] ——来添加一个大标题动画."));
+			}
+		} else if (args[0].equalsIgnoreCase("smallTitle")) {
+			if (args.length >= 7) {
+				String animationName = args[1];
+				String location = args[2];
+				String fadeIn = args[3];
+				String stay = args[4];
+				String fadeOut = args[5];
+				StringBuilder magicValue = new StringBuilder();
+				for (int i = 6;i < args.length;i++) {
+					magicValue.append(args[i]).append(" ");
+				}
+				String titleMsg = magicValue.toString().trim();
+				if (!isInt(fadeIn) || !isInt(stay) || !isInt(fadeOut) || !isInt(location)) {
+					sender.sendMessage(genAnimationMsg("不是数字."));
+					return false;
+				}
+				AnimationObject animationObject = AnimationViewAPI.getAnimationObject(animationName);
+				if (animationObject == null) {
+					sender.sendMessage(genAnimationMsg("您指定的动画不存在."));
+					return false;
+				}
+				int where = Integer.valueOf(location);
+				where++;
+				AnimationJob job = new AnimationJob("小Title", new String[]{ fadeIn, stay, fadeOut, titleMsg });
+				if (where >= animationObject.getJobList().size()) {
+					animationObject.addJob(job);
+				} else {
+					animationObject.addJob(job, where);
+				}
+				sender.sendMessage(genAnimationMsg("添加任务成功."));
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv smallTitle [动画名称] [位置] [淡入时间] [停留时间] [淡出时间] [大标题信息] ——来添加一个小标题动画."));
 			}
 		}
 		return false;
@@ -222,6 +312,8 @@ public class ViewCommand implements CommandExecutor {
 		sender.sendMessage(genAnimationMsg("/anv play [玩家] [动画名称] ——给玩家播放一个动画."));
 		sender.sendMessage(genAnimationMsg("/anv addSendMsg [动画名称] [位置] [信息] ——插入动画:发送信息"));
 		sender.sendMessage(genAnimationMsg("/anv addActionBar [动画名称] [位置] [信息] ——插入动画:发送ActionBar(仅在1.9+版本可以使用)"));
+		sender.sendMessage(genAnimationMsg("/anv bigTitle [动画名称] [位置] [淡入时间] [停留时间] [淡出时间] [大标题信息] ——来添加一个大标题动画."));
+		sender.sendMessage(genAnimationMsg("/anv smallTitle [动画名称] [位置] [淡入时间] [停留时间] [淡出时间] [大标题信息] ——来添加一个小标题动画."));
 		sender.sendMessage(genAnimationMsg("/anv create [动画名称] ——创建一个动画对象."));
 		sender.sendMessage(genAnimationMsg("/anv jobs [动画名称] ——查看一个动画的所有任务."));
 	}
