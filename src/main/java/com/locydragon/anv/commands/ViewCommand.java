@@ -361,6 +361,21 @@ public class ViewCommand implements CommandExecutor {
 				sender.sendMessage(genAnimationMsg("使用/anv opCommand [动画名称] [位置] [指令] ——执行OP指令"));
 				sender.sendMessage(genAnimationMsg("提示:如果指令不以\"/\"开头的话，就会强制让玩家说一句话."));
 			}
+		} else if (args[0].equalsIgnoreCase("removeJob")) {
+			if (args.length == 2) {
+				String targetName = args[1];
+				String jobName = args[2];
+				AnimationObject animationObject = AnimationViewAPI.getAnimationObject(targetName);
+				if (animationObject == null) {
+					sender.sendMessage(genAnimationMsg("您指定的动画不存在."));
+					return false;
+				}
+				animationObject.removeJob(new AnimationJob(jobName, new String[]{}));
+				sender.sendMessage(genAnimationMsg("移除成功."));
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv removeJob [动画名称} [任务名称] ——移除一个任务"));
+				sender.sendMessage(genAnimationMsg("任务可以使用/anv jobs指令查看》"));
+			}
 		}
 		return false;
 	}
@@ -380,6 +395,7 @@ public class ViewCommand implements CommandExecutor {
 		sender.sendMessage(genAnimationMsg("/anv opCommand [动画名称] [位置] [指令] ——执行OP指令"));
 		sender.sendMessage(genAnimationMsg("/anv create [动画名称] ——创建一个动画对象."));
 		sender.sendMessage(genAnimationMsg("/anv jobs [动画名称] ——查看一个动画的所有任务."));
+		sender.sendMessage(genAnimationMsg("/anv removeJob [动画名称} [任务名称] ——移除一个任务"));
 	}
 	public boolean isInt(String intment) {
 		try {
