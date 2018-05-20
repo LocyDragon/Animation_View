@@ -6,9 +6,8 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.TitleAction;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.google.common.base.Strings;
+import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nullable;
 import java.lang.reflect.InvocationTargetException;
 
 /**
