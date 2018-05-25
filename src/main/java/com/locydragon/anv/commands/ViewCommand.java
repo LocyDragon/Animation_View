@@ -153,7 +153,7 @@ public class ViewCommand implements CommandExecutor {
 					builder.append(ChatColor.BLUE);
 					builder.append("任务序号: ").append(i).append("\n");
 					builder.append(ChatColor.GREEN);
-					builder.append("任务名称: ").append(job.getJobArgs()).append("\n");
+					builder.append("任务名称: ").append(job.getJobType()).append("\n");
 					builder.append(ChatColor.AQUA);
 					builder.append("任务属性: ").append(Arrays.asList(job.getJobArgs()).toString()).append("\n");
 					pages.add(builder.toString());
@@ -231,7 +231,6 @@ public class ViewCommand implements CommandExecutor {
 				sender.sendMessage(genAnimationMsg("添加任务成功."));
 			} else {
 				sender.sendMessage(genAnimationMsg("使用/anv wait [动画名称] [位置] [秒] ——设置在某个任务后面等待几秒"));
-
 			}
 		} else if (args[0].equalsIgnoreCase("bigTitle")) {
 			if (args.length >= 7) {
@@ -393,6 +392,7 @@ public class ViewCommand implements CommandExecutor {
 		sender.sendMessage(genAnimationMsg("/anv smallTitle [动画名称] [位置] [淡入时间] [停留时间] [淡出时间] [大标题信息] ——来添加一个小标题动画."));
 		sender.sendMessage(genAnimationMsg("/anv playerCommand [动画名称] [位置] [指令] ——执行玩家指令"));
 		sender.sendMessage(genAnimationMsg("/anv opCommand [动画名称] [位置] [指令] ——执行OP指令"));
+		sender.sendMessage(genAnimationMsg("/anv wait [动画名称] [位置] [秒] ——设置在某个任务后面等待几秒"));
 		sender.sendMessage(genAnimationMsg("/anv create [动画名称] ——创建一个动画对象."));
 		sender.sendMessage(genAnimationMsg("/anv jobs [动画名称] ——查看一个动画的所有任务."));
 		sender.sendMessage(genAnimationMsg("/anv removeJob [动画名称] [任务名称] ——移除一个任务"));

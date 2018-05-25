@@ -13,7 +13,7 @@ public class SendMsgBench implements Listener{
     @EventHandler
 	public void onResolve(AnimationResolveEvent e) {
 		if (e.getThisJob().getJobType().equals("发送信息")) {
-			e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', e.getThisJob().getJobArgs()[0]));
+			e.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&', ChatColor.translateAlternateColorCodes('&', e.getThisJob().getJobArgs()[0])));
 		}
 	}
 }

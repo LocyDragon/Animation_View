@@ -37,6 +37,11 @@ public class AnimationObject {
 		}
 		AnimationLand.land.set(this.animationName+".jobs", dese);
 		AnimationLand.reloadLand();
+		List<AnimationJob> newList = new ArrayList<>();
+		for (String obj : AnimationLand.land.getStringList(this.animationName+".jobs")) {
+			newList.add(AnimationJob.toAnimationJob(obj));
+		}
+		this.jobList = newList;
 		return true;
 	}
 

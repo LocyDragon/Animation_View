@@ -55,7 +55,7 @@ public static boolean resolveAnimation(AnimationObject object, Player who) {
 			lock.unlock();
 		}
 	});
-	resolveThread.run();
+	resolveThread.start();
 	return true;
 }
 }

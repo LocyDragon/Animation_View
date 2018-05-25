@@ -7,6 +7,7 @@ import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.locydragon.anv.api.events.AnimationResolveEvent;
 import com.locydragon.anv.core.protocol.BookManager;
 import com.locydragon.anv.core.tree.Bench;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -19,7 +20,7 @@ public class SendActionBarBench implements Listener {
 		if (e.getThisJob().getJobType().equals("发送ActionBar")) {
 			ProtocolManager manager = BookManager.PROTOCOL_MANAGER;
 			PacketContainer container = manager.createPacket(PacketType.Play.Server.CHAT);
-			container.getChatComponents().write(0, WrappedChatComponent.fromJson("{\"text\": \"" + e.getThisJob().getJobArgs()[0] + "\"}"));
+			container.getChatComponents().write(0, WrappedChatComponent.fromJson("{\"text\": \"" + ChatColor.translateAlternateColorCodes('&', e.getThisJob().getJobArgs()[0]) + "\"}"));
 			container.getBytes().write(0, (byte)2);
 			try {
 				manager.sendServerPacket(e.getPlayer(), container);
