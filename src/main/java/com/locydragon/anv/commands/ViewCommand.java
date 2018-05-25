@@ -199,7 +199,7 @@ public class ViewCommand implements CommandExecutor {
 				}
 				sender.sendMessage(genAnimationMsg("添加任务成功."));
 			} else {
-				sender.sendMessage(genAnimationMsg("使用/anv addActionBar [动画名称] [位置] [信息] ——插入动画:发送ActionBar(仅在1.9+版本可以使用)"));
+				sender.sendMessage(genAnimationMsg("使用/anv sendActionBar [动画名称] [位置] [信息] ——插入动画:发送ActionBar(仅在1.9+版本可以使用)"));
 				sender.sendMessage(genAnimationMsg("位置的意思是在第几个任务§c§l后面§a执行这个动画，可以使用/anv jobs指令来查看动画的任务列表."));
 			}
 		} else if (args[0].equalsIgnoreCase("wait")) {
@@ -361,7 +361,7 @@ public class ViewCommand implements CommandExecutor {
 				sender.sendMessage(genAnimationMsg("提示:如果指令不以\"/\"开头的话，就会强制让玩家说一句话."));
 			}
 		} else if (args[0].equalsIgnoreCase("removeJob")) {
-			if (args.length == 2) {
+			if (args.length == 3) {
 				String targetName = args[1];
 				String jobName = args[2];
 				AnimationObject animationObject = AnimationViewAPI.getAnimationObject(targetName);
@@ -373,7 +373,7 @@ public class ViewCommand implements CommandExecutor {
 				sender.sendMessage(genAnimationMsg("移除成功."));
 			} else {
 				sender.sendMessage(genAnimationMsg("使用/anv removeJob [动画名称] [任务名称] ——移除一个任务"));
-				sender.sendMessage(genAnimationMsg("任务可以使用/anv jobs指令查看》"));
+				sender.sendMessage(genAnimationMsg("任务可以使用/anv jobs指令查看"));
 			}
 		}
 		return false;
@@ -387,7 +387,7 @@ public class ViewCommand implements CommandExecutor {
 		sender.sendMessage(genAnimationMsg("/anv mark [动画名称] [注释文字] ——给动画加注释,以标记这个动画是做什么用的(这仅仅是为了自己方便)"));
 		sender.sendMessage(genAnimationMsg("/anv play [玩家] [动画名称] ——给玩家播放一个动画."));
 		sender.sendMessage(genAnimationMsg("/anv addSendMsg [动画名称] [位置] [信息] ——插入动画:发送信息"));
-		sender.sendMessage(genAnimationMsg("/anv addActionBar [动画名称] [位置] [信息] ——插入动画:发送ActionBar(仅在1.9+版本可以使用)"));
+		sender.sendMessage(genAnimationMsg("/anv sendActionBar [动画名称] [位置] [信息] ——插入动画:发送ActionBar(仅在1.9+版本可以使用)"));
 		sender.sendMessage(genAnimationMsg("/anv bigTitle [动画名称] [位置] [淡入时间] [停留时间] [淡出时间] [大标题信息] ——来添加一个大标题动画."));
 		sender.sendMessage(genAnimationMsg("/anv smallTitle [动画名称] [位置] [淡入时间] [停留时间] [淡出时间] [大标题信息] ——来添加一个小标题动画."));
 		sender.sendMessage(genAnimationMsg("/anv playerCommand [动画名称] [位置] [指令] ——执行玩家指令"));
