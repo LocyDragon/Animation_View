@@ -166,7 +166,7 @@ public class ViewCommand implements CommandExecutor {
 				meta.setTitle(ChatColor.BLUE+"动画"+animationName+"的任务列表");
 				meta.setDisplayName(ChatColor.BLUE+"动画"+animationName+"的任务列表");
 				bookItem.setItemMeta(meta);
-				BookManager.open((Player)sender, bookItem);
+				new BookManager().open((Player)sender, bookItem);
 				sender.sendMessage(genAnimationMsg("为您呈现"+animationName+"的动画列表."));
 			} else {
 				sender.sendMessage(genAnimationMsg("使用/anv jobs [动画名称] ——查看一个动画的所有任务."));

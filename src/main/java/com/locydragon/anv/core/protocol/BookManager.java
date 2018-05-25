@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class BookManager {
 	public static ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
 
-	public static AtomicReference<PacketContainer> BOOK_OPEN_PACKET = new AtomicReference<>();
+	public AtomicReference<PacketContainer> BOOK_OPEN_PACKET = new AtomicReference<>();
 
 	/**
 	 * 本方法来自项目:UDPLib，项目地址:https://github.com/UnknownStudio/UDPLib
@@ -27,7 +27,7 @@ public class BookManager {
 	 * @param player 玩家对象
 	 * @param book 需要打开的书
 	 */
-	public static void open(Player player, ItemStack book){
+	public void open(Player player, ItemStack book){
 		ItemStack held = player.getItemInHand();
 		player.getInventory().setItemInHand(book);
 
