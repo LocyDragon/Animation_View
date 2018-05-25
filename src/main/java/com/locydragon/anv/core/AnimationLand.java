@@ -6,7 +6,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class AnimationLand {
 	public static FileConfiguration land = null;
 	public static void reloadLand() {
-		AnimationView.getInstance().saveDefaultConfig();
+		AnimationView.getInstance().saveConfig();
 		AnimationView.getInstance().reloadConfig();
 		land = AnimationView.getInstance().getConfig();
 	}

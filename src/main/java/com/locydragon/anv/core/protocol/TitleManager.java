@@ -6,7 +6,6 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.EnumWrappers.TitleAction;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.google.common.base.Strings;
-import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 import org.bukkit.entity.Player;
 import java.lang.reflect.InvocationTargetException;
 
@@ -16,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 public class TitleManager {
 	public static ProtocolManager PROTOCOL_MANAGER = ProtocolLibrary.getProtocolManager();
 
-	public static void title(Player player, @Nullable String title, @Nullable String subTitle, int fadeIn, int stay, int fadeOut){
+	public static void title(Player player, String title, String subTitle, int fadeIn, int stay, int fadeOut){
 		setTimeAndDisplay(player, fadeIn, stay, fadeOut);
 		if(!Strings.isNullOrEmpty(title)){
 			title(player, title);

@@ -23,6 +23,8 @@ public class AnimationView extends JavaPlugin {
 		saveDefaultConfig();
 		instance = this;
 		AnimationLand.land = getConfig();
+		Bukkit.getLogger().info("您正在使用的是AnimationView——免费版插件");
+		Bukkit.getLogger().info("作者:LocyDragon QQ:2424441676");
 	}
 	public static AnimationView getInstance() {
 		return instance;
