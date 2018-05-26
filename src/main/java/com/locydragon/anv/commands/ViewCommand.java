@@ -98,7 +98,7 @@ public class ViewCommand implements CommandExecutor {
 					sender.sendMessage(genAnimationMsg("你输入的动画"+args[2]+"不在线或不存在."));
 					return false;
 				}
-				if (!object.playFor(playTo)) {
+				if (object.playFor(playTo) == false) {
 					sender.sendMessage("§c错误: 玩家正在播放一个动画.");
 				}
 				sender.sendMessage(genAnimationMsg("为"+playTo.getName()+"播放"+animationName+"成功."));

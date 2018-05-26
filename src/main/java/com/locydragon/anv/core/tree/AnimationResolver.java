@@ -6,20 +6,18 @@ import com.locydragon.anv.api.util.AnimationJob;
 import com.locydragon.anv.api.util.AnimationObject;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class AnimationResolver {
-public static List<Player> runningPlayers = new ArrayList<>();
+	public static Vector<String> runningPlayers = new Vector<>();
 public static ReentrantLock lock = new ReentrantLock();
 public static boolean resolveAnimation(AnimationObject object, Player who) {
 	if (object == null || who == null) {
 		throw new NullPointerException("Null args");
 	}
-	for (Player user : runningPlayers) {
-		if (user.getName().equalsIgnoreCase(who.getName())) {
+	for (String user : runningPlayers) {
+		if (user.equalsIgnoreCase(who.getName())) {
 			return false;
 		}
 	}
@@ -28,7 +26,7 @@ public static boolean resolveAnimation(AnimationObject object, Player who) {
 		public void run() {
 			lock.lock();
 
-			runningPlayers.add(who);
+			runningPlayers.add(who.getName());
 			for (AnimationJob job : object.getJobList()) {
 				if (job.getJobType().equalsIgnoreCase("等待")) {
 					try {
@@ -47,7 +45,7 @@ public static boolean resolveAnimation(AnimationObject object, Player who) {
 				});
 			}
 			for (int i = 0;i < runningPlayers.size();i++) {
-				if (runningPlayers.get(i).getName().equalsIgnoreCase(who.getName())) {
+				if (runningPlayers.get(i).equalsIgnoreCase(who.getName())) {
 					runningPlayers.remove(i);
 				}
 			}

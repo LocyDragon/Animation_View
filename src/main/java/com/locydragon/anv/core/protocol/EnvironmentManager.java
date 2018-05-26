@@ -37,37 +37,38 @@ public class EnvironmentManager {
 		sendThread.start();
 	}
 	public static void rainy(Player who, int second) {
-		int entityId = nextEntityID.getAndDecrement();
-		PacketContainer packet = BookManager.PROTOCOL_MANAGER.createPacket(PacketType.Play.Server.SPAWN_ENTITY_WEATHER);
-		packet.getIntegers().write(0, entityId);
-		packet.getIntegers().write(1, who.getLocation().getBlockX());
-		packet.getIntegers().write(2, who.getLocation().getBlockY());
-		packet.getIntegers().write(3, who.getLocation().getBlockZ());
-        packet.getIntegers().write(4, 0);
-		try {
-			BookManager.PROTOCOL_MANAGER.sendServerPacket(who, packet);
-		} catch (Exception exc) {
-			exc.printStackTrace();
-		} finally {
-			Thread runThread = new Thread(new Runnable() {
-				@Override
-				public void run() {
+		int wentTime = second*500;
+		PacketContainer packet = BookManager.PROTOCOL_MANAGER.createPacket(PacketType.Play.Server.GAME_STATE_CHANGE);
+		packet.getIntegers().write(2, 0);
+		packet.getFloat().write(0, (float)0);
+        Thread sendThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 0; i < wentTime; i++) {
 					try {
-						Thread.sleep(second * 1000);
+						BookManager.PROTOCOL_MANAGER.sendServerPacket(who, packet);
 					} catch (Exception exc) {
 						exc.printStackTrace();
 					} finally {
-						int entityId = nextEntityID.getAndDecrement();
-						PacketContainer packet = BookManager.PROTOCOL_MANAGER.createPacket(PacketType.Play.Server.SPAWN_ENTITY_WEATHER);
-						packet.getIntegers().write(0, entityId);
-						packet.getIntegers().write(1, who.getLocation().getBlockX());
-						packet.getIntegers().write(2, who.getLocation().getBlockY());
-						packet.getIntegers().write(3, who.getLocation().getBlockZ());
-						packet.getIntegers().write(4, 0);
+						try {
+							Thread.sleep(2);
+						} catch (Exception exc) {
+							exc.printStackTrace();
+						} finally {
+							continue;
+						}
 					}
 				}
-			});
-			runThread.start();
-		}
+				PacketContainer packet2 = BookManager.PROTOCOL_MANAGER.createPacket(PacketType.Play.Server.GAME_STATE_CHANGE);
+				packet2.getIntegers().write(1, 0);
+				packet2.getFloat().write(0, (float)0);
+				try {
+					BookManager.PROTOCOL_MANAGER.sendServerPacket(who, packet2);
+				} catch (Exception exc) {
+					exc.printStackTrace();
+				}
+			}
+		});
+        sendThread.start();
 	}
 }
