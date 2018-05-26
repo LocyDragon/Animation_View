@@ -375,6 +375,32 @@ public class ViewCommand implements CommandExecutor {
 				sender.sendMessage(genAnimationMsg("使用/anv removeJob [动画名称] [任务名称] ——移除一个任务"));
 				sender.sendMessage(genAnimationMsg("任务可以使用/anv jobs指令查看"));
 			}
+		} else if (args[0].equalsIgnoreCase("time")) {
+			if (args.length == 5) {
+				String targetName = args[1];
+				String location = args[2];
+				AnimationObject animationObject = AnimationViewAPI.getAnimationObject(targetName);
+				if (animationObject == null) {
+					sender.sendMessage(genAnimationMsg("您指定的动画不存在."));
+					return false;
+				}
+				if (!isInt(location) || !isInt(args[3]) || !isInt(args[4])) {
+					sender.sendMessage("您输入的位置不是个阿拉伯数字!");
+					return false;
+				}
+				int where = Integer.valueOf(location);
+				where++;
+				AnimationJob job = new AnimationJob("设置世界时间", new String[]{ args[3],args[4] });
+				if (where >= animationObject.getJobList().size()) {
+					animationObject.addJob(job);
+				} else {
+					animationObject.addJob(job, where);
+				}
+				sender.sendMessage(genAnimationMsg("添加任务成功."));
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv time [动画名称] [位置] [世界时间] [持续时长] ——设置时间"));
+				sender.sendMessage(genAnimationMsg("注意，这个时间只会被播放动画的玩家看到."));
+			}
 		}
 		return false;
 	}
@@ -393,6 +419,7 @@ public class ViewCommand implements CommandExecutor {
 		sender.sendMessage(genAnimationMsg("/anv playerCommand [动画名称] [位置] [指令] ——执行玩家指令"));
 		sender.sendMessage(genAnimationMsg("/anv opCommand [动画名称] [位置] [指令] ——执行OP指令"));
 		sender.sendMessage(genAnimationMsg("/anv wait [动画名称] [位置] [秒] ——设置在某个任务后面等待几秒"));
+		sender.sendMessage(genAnimationMsg("/anv time [动画名称] [位置] [世界时间] [持续时长] ——设置该世界的时间"));
 		sender.sendMessage(genAnimationMsg("/anv create [动画名称] ——创建一个动画对象."));
 		sender.sendMessage(genAnimationMsg("/anv jobs [动画名称] ——查看一个动画的所有任务."));
 		sender.sendMessage(genAnimationMsg("/anv removeJob [动画名称] [任务名称] ——移除一个任务"));

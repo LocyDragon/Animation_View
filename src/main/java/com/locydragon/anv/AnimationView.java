@@ -1,11 +1,22 @@
 package com.locydragon.anv;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.events.ListenerOptions;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.injector.GamePhase;
 import com.locydragon.anv.commands.ViewCommand;
 import com.locydragon.anv.core.AnimationLand;
+import com.locydragon.anv.core.protocol.BookManager;
 import com.locydragon.anv.core.tree.bench.*;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 
 /**
@@ -14,6 +25,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class AnimationView extends JavaPlugin {
 	public static final String magicValue_ProtocolLib = "ProtocolLib";
 	public static AnimationView instance = null;
+	public static Vector<String> forbidTimePacket = new Vector<>();
 	@Override
 	public void onEnable() {
 		if (Bukkit.getPluginManager().getPlugin(magicValue_ProtocolLib) == null) {
@@ -40,6 +52,7 @@ public class AnimationView extends JavaPlugin {
 		register(new SendBigTitleBench());
 		register(new SendMsgBench());
 		register(new SendSmallTitleBench());
+		register(new TimeBench());
 	}
 	public static void register(Listener door) {
 		Bukkit.getPluginManager().registerEvents(door, instance);
