@@ -53,6 +53,7 @@ public class AnimationView extends JavaPlugin {
 		register(new SendMsgBench());
 		register(new SendSmallTitleBench());
 		register(new TimeBench());
+		register(new RainyBench());
 	}
 	public static void register(Listener door) {
 		Bukkit.getPluginManager().registerEvents(door, instance);

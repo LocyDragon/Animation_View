@@ -373,7 +373,7 @@ public class ViewCommand implements CommandExecutor {
 				sender.sendMessage(genAnimationMsg("移除成功."));
 			} else {
 				sender.sendMessage(genAnimationMsg("使用/anv removeJob [动画名称] [任务名称] ——移除一个任务"));
-				sender.sendMessage(genAnimationMsg("任务可以使用/anv jobs指令查看"));
+				sender.sendMessage(genAnimationMsg("任务可以使用/anv jobs 指令查看"));
 			}
 		} else if (args[0].equalsIgnoreCase("time")) {
 			if (args.length == 5) {
@@ -385,7 +385,7 @@ public class ViewCommand implements CommandExecutor {
 					return false;
 				}
 				if (!isInt(location) || !isInt(args[3]) || !isInt(args[4])) {
-					sender.sendMessage("您输入的位置不是个阿拉伯数字!");
+					sender.sendMessage("您输入的不是个阿拉伯数字!");
 					return false;
 				}
 				int where = Integer.valueOf(location);
@@ -401,11 +401,36 @@ public class ViewCommand implements CommandExecutor {
 				sender.sendMessage(genAnimationMsg("使用/anv time [动画名称] [位置] [世界时间] [持续时长] ——设置时间"));
 				sender.sendMessage(genAnimationMsg("注意，这个时间只会被播放动画的玩家看到."));
 			}
+		} else if (args[0].equalsIgnoreCase("rainy")) {
+			if (args.length == 4) {
+				String targetName = args[1];
+				String location = args[2];
+				AnimationObject animationObject = AnimationViewAPI.getAnimationObject(targetName);
+				if (animationObject == null) {
+					sender.sendMessage(genAnimationMsg("您指定的动画不存在."));
+					return false;
+				}
+				if (!isInt(location) || !isInt(args[3])) {
+					sender.sendMessage("您输入的不是个阿拉伯数字!");
+					return false;
+				}
+				int where = Integer.valueOf(location);
+				where++;
+				AnimationJob job = new AnimationJob("下雨", new String[]{ args[3] });
+				if (where >= animationObject.getJobList().size()) {
+					animationObject.addJob(job);
+				} else {
+					animationObject.addJob(job, where);
+				}
+				sender.sendMessage(genAnimationMsg("添加任务成功."));
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv rainy [动画名称] [位置] [时长]——设置世界下雨动画"));
+			}
 		}
 		return false;
 	}
 	public String genAnimationMsg(String info) {
-		return new StringBuilder().append("§7[§b§lAnimationView§7]§a"+info).toString();
+		return new StringBuilder().append("§7[§b§lAnimationView§7]§a").append(info).toString();
 	}
 	public void sendHelp(CommandSender sender) {
 		sender.sendMessage(genAnimationMsg("/anv help ——查看帮助"));
