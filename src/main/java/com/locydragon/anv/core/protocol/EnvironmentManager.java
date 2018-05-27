@@ -39,7 +39,7 @@ public class EnvironmentManager {
 	public static void rainy(Player who, int second) {
 		int wentTime = second*500;
 		PacketContainer packet = BookManager.PROTOCOL_MANAGER.createPacket(PacketType.Play.Server.GAME_STATE_CHANGE);
-		packet.getIntegers().write(2, 0);
+		packet.getIntegers().write(0, 2);
 		packet.getFloat().write(0, (float)0);
         Thread sendThread = new Thread(new Runnable() {
 			@Override
@@ -60,7 +60,7 @@ public class EnvironmentManager {
 					}
 				}
 				PacketContainer packet2 = BookManager.PROTOCOL_MANAGER.createPacket(PacketType.Play.Server.GAME_STATE_CHANGE);
-				packet2.getIntegers().write(1, 0);
+				packet2.getIntegers().write(0, 1);
 				packet2.getFloat().write(0, (float)0);
 				try {
 					BookManager.PROTOCOL_MANAGER.sendServerPacket(who, packet2);
