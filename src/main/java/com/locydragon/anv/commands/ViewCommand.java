@@ -100,6 +100,7 @@ public class ViewCommand implements CommandExecutor {
 				}
 				if (object.playFor(playTo) == false) {
 					sender.sendMessage("§c错误: 玩家正在播放一个动画.");
+					return false;
 				}
 				sender.sendMessage(genAnimationMsg("为"+playTo.getName()+"播放"+animationName+"成功."));
 			} else {

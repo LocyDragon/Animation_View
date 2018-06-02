@@ -5,9 +5,12 @@ import com.locydragon.anv.api.util.AnimationObject;
 import com.locydragon.anv.core.AnimationLand;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AnimationViewAPI {
+	public static HashMap<String,AnimationObject> objectAche = new HashMap<>();
 	/**
 	 *根据动画名称获取对象
 	 * @param animationName 动画名称
@@ -17,13 +20,18 @@ public class AnimationViewAPI {
 		if (AnimationLand.land.getBoolean(animationName+"."+"created", false) == false) {
 			return null;
 		}
-		AnimationObject object = AnimationObject.emptyObject();
-		object.setName(animationName);
-		List<String> jobStringList = AnimationLand.land.getStringList(animationName+".jobs");
-		for (String eachJob : jobStringList) {
-			object.addJob(AnimationJob.toAnimationJob(eachJob));
+		if (objectAche.containsKey(animationName)) { //先从缓存中寻找
+			return objectAche.get(animationName);
+		} else {
+			AnimationObject object = AnimationObject.emptyObject();
+			object.setName(animationName);
+			List<String> jobStringList = AnimationLand.land.getStringList(animationName+".jobs");
+			for (String eachJob : jobStringList) {
+				object.addJob(AnimationJob.toAnimationJob(eachJob));
+			}
+			objectAche.put(animationName, object);
+			return object;
 		}
-		return object;
 	}
 
 	/**

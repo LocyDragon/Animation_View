@@ -35,7 +35,7 @@
                     <webResources>
                         <resource>
                             <directory>libs/</directory>
-                            <targetPath>WEB-INF/lib</targetPath>
+                            <targetPath>WEB-INF/libs</targetPath>
                             <includes>
                                 <include>**/*.jar</include>
                             </includes>

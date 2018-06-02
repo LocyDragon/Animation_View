@@ -1,5 +1,6 @@
 package com.locydragon.anv.api.util;
 
+import com.locydragon.anv.api.AnimationViewAPI;
 import com.locydragon.anv.core.AnimationLand;
 import com.locydragon.anv.core.tree.AnimationResolver;
 import org.bukkit.entity.Player;
@@ -42,6 +43,7 @@ public class AnimationObject {
 			newList.add(AnimationJob.toAnimationJob(obj));
 		}
 		this.jobList = newList;
+		AnimationViewAPI.objectAche.replace(this.animationName, this); //更新缓存
 		return true;
 	}
 
