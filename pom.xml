@@ -29,13 +29,28 @@
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>libs/</directory>
+                            <targetPath>WEB-INF/lib</targetPath>
+                            <includes>
+                                <include>**/*.jar</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
                     <encoding>UTF-8</encoding>
                     <compilerArguments>
-                        <verbose />
+                        <verbose/>
                         <bootclasspath>${JAVA_HOME}/jre/lib/rt.jar;${JAVA_HOME}/jre/lib/jce.jar</bootclasspath>
                     </compilerArguments>
                 </configuration>
@@ -48,6 +63,9 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <extdirs>libs</extdirs>
+                    </compilerArguments>
                 </configuration>
             </plugin>
             <plugin>
@@ -91,19 +109,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                    <compilerArgs>
-                        <arg>-extdirs</arg>
-                        <arg>${project.basedir}/libs/</arg>
-                    </compilerArgs>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
     <repositories>
@@ -116,22 +121,22 @@
         <dependency>
             <groupId>fastjson</groupId>
             <artifactId>fastjson</artifactId>
-            <version>3.15.0</version>
+            <version>1.2.7</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/fastjson-1.2.7.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ProtocolLib</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>3.6.5</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/softdepend/ProtocolLib3.6.5+for+1.8.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.8.3-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>ff</groupId>
-            <artifactId>ff</artifactId>
-            <version>ff</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/ProtocolLib.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
