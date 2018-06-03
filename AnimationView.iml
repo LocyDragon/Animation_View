@@ -31,7 +31,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://D:/服务器/plugins/ProtocolLib3.6.5+for+1.8.jar!/" />
+          <root url="jar://$MODULE_DIR$/libs/fastjson-1.2.7.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -40,7 +40,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/fastjson-1.2.7.jar!/" />
+          <root url="jar://$USER_HOME$/Desktop/ProtocolLib+4.2.0+for+1.11.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

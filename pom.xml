@@ -130,7 +130,7 @@
             <artifactId>ProtocolLib</artifactId>
             <version>3.6.5</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/softdepend/ProtocolLib3.6.5+for+1.8.jar</systemPath>
+            <systemPath>${project.basedir}/softdepend/ProtocolLib3.6.5+for+1.11.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
