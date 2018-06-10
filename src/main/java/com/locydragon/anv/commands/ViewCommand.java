@@ -427,6 +427,14 @@ public class ViewCommand implements CommandExecutor {
 			} else {
 				sender.sendMessage(genAnimationMsg("使用/anv rainy [动画名称] [位置] [时长]——设置世界下雨动画"));
 			}
+		} else if (args[0].equalsIgnoreCase("newEntity")) {
+			if (args.length == 3) {
+				String targetName = args[1];
+				String entityName = args[2];
+
+			} else {
+				sender.sendMessage(genAnimationMsg("使用/anv newEntity [动画名称] [实体名称] ——创建一个新的实体模板"));
+			}
 		}
 		return false;
 	}
@@ -447,6 +455,7 @@ public class ViewCommand implements CommandExecutor {
 		sender.sendMessage(genAnimationMsg("/anv wait [动画名称] [位置] [秒] ——设置在某个任务后面等待几秒"));
 		sender.sendMessage(genAnimationMsg("/anv time [动画名称] [位置] [世界时间] [持续时长] ——设置该世界的时间"));
 		sender.sendMessage(genAnimationMsg("/anv rainy [动画名称] [位置] [时长]——设置世界下雨动画"));
+		sender.sendMessage(genAnimationMsg("/anv newEntity [动画名称] [实体名称] ——创建一个新的实体模板"));
 		sender.sendMessage(genAnimationMsg("/anv create [动画名称] ——创建一个动画对象."));
 		sender.sendMessage(genAnimationMsg("/anv jobs [动画名称] ——查看一个动画的所有任务."));
 		sender.sendMessage(genAnimationMsg("/anv removeJob [动画名称] [任务名称] ——移除一个任务"));

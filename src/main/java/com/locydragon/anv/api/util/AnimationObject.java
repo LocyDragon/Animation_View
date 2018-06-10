@@ -1,8 +1,10 @@
 package com.locydragon.anv.api.util;
 
 import com.locydragon.anv.api.AnimationViewAPI;
+import com.locydragon.anv.api.util.save.EntityCloud;
 import com.locydragon.anv.core.AnimationLand;
 import com.locydragon.anv.core.tree.AnimationResolver;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ public class AnimationObject {
 		}
 		this.jobList = newList;
 		AnimationViewAPI.objectAche.replace(this.animationName, this); //更新缓存
+		EntityCloud.cache.clear();
 		return true;
 	}
 
@@ -132,5 +135,16 @@ public class AnimationObject {
 	 */
 	public boolean playFor(Player who) {
 		return AnimationResolver.resolveAnimation(this, who);
+	}
+	/**
+	 * 获取实体池
+	 * @return 改动画的实体池
+	 */
+	public EntityPool getPool() {
+		if (EntityCloud.cache.keySet().contains(this.animationName)) {
+			return EntityCloud.cache.get(this.animationName);
+		} else {
+			return null;
+		}
 	}
 }

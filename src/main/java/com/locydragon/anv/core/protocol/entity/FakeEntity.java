@@ -17,6 +17,24 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class FakeEntity {
 	static ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
 	static AtomicInteger nextEntityID = new AtomicInteger(Integer.MAX_VALUE);
+
+	private String entityName = null;
+	private boolean spawned = false;
+	private Location current = null;
+	private int entityId = -1;
+	public FakeEntity(String name) {
+		this.entityName = name;
+		this.spawned = false;
+		this.entityId = nextEntityID.getAndDecrement();
+	}
+    public void moveTo(Player who, Location location) {
+		Validate.notNull(this.current);
+		if (this.spawned == false) {
+			return;
+		}
+		sendMovePacket(who, this.entityId, this.current, location, location.getYaw(), location.getPitch());
+		this.current = location;
+	}
     static void sendMovePacket(Player player, int entityId, Location current, Location prev, float yaw, float angle) {
 		Validate.notNull(current);
 		Validate.notNull(prev);
@@ -44,7 +62,7 @@ public class FakeEntity {
 		}
 	}
 	@Deprecated
-	static void sendFakeItemEntity(Player player, ItemStack itemStack, Location location, String displayName){
+	static void sendFakeEntity(Player player, ItemStack itemStack, Location location, String displayName){
 		Validate.notNull(player);
 		Validate.notNull(itemStack);
 		Validate.notNull(location);
