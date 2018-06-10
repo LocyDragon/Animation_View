@@ -25,6 +25,7 @@ public class Point2D {
 								, location2.getBlockY(), location1.getBlockY(), i);
 						Location newLocation = new Location(location1.getWorld(), i, location1.getY(), y);
 						returnType.add(newLocation);
+						//change into double
 					}
 				} else {
 
